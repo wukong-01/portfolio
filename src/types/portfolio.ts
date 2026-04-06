@@ -1,0 +1,15 @@
+import type { StaticImageData } from "next/image";
+
+export type ExperienceItem = {
+  company: string;
+  role: string;
+  period: string;
+  highlight: string;
+  stack: string[];
+  logo: StaticImageData;
+};
+
+export type SkillGroup = {
+  title: string;
+  items: string[];
+};
