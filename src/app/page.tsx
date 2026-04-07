@@ -1,4 +1,5 @@
 import { BackgroundEffects } from "@/components/portfolio/background-effects";
+import { ChatbotSection } from "@/components/portfolio/chatbot-section";
 import { ContactSection } from "@/components/portfolio/contact-section";
 import { EducationSection } from "@/components/portfolio/education-section";
 import { ExperienceSection } from "@/components/portfolio/experience-section";
@@ -18,6 +19,7 @@ export default function Home() {
         <ExperienceSection experience={experience} />
         <EducationSection />
         <SkillsSection skillGroups={skillGroups} />
+        <ChatbotSection />
         <ContactSection />
       </main>
     </BackgroundEffects>

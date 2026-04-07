@@ -42,7 +42,10 @@ export function BackgroundEffects({ children }: BackgroundEffectsProps) {
         mouseY.set(event.clientY);
       }}
     >
-      <motion.div className="pointer-events-none fixed inset-0 z-20" style={{ background: spotlight }} />
+      <motion.div
+        className="pointer-events-none fixed inset-0 z-20"
+        style={{ background: spotlight }}
+      />
 
       <div className="pointer-events-none absolute inset-0 opacity-70">
         <div className="grid-bg h-full w-full" />

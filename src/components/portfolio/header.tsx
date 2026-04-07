@@ -25,6 +25,11 @@ const navItems = [
     href: "#contact",
     external: false,
   },
+  {
+    label: "Chatbot",
+    href: "#chatbot",
+    external: false,
+  },
 ] as const;
 
 export function Header() {
