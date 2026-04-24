@@ -7,8 +7,13 @@ import hcmutLogo from "@/images/hcmut.jpeg";
 
 export function EducationSection() {
   return (
-    <section id="education" className="space-y-6">
-      <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: 0.5 }}>
+    <section id="education" className="space-y-10">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.6 }}
+        transition={{ duration: 0.5 }}
+      >
         <SectionTitle title="Education" />
       </motion.div>
 
@@ -17,17 +22,21 @@ export function EducationSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.45 }}
-        className="glass-card hover-lift rounded-3xl p-6"
+        className="glass-card hover-lift rounded-2xl p-6"
       >
-        <p className="text-xs uppercase tracking-[0.18em] text-cyan-100">08/2019 - 12/2023</p>
-        <div className="mt-2 flex items-center gap-3">
-          <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-white/20 bg-white/10">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">08/2019 – 12/2023</p>
+        <div className="mt-3 flex items-start gap-4">
+          <div className="relative mt-0.5 h-10 w-10 shrink-0 overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
             <Image src={hcmutLogo} alt="HCMUT logo" fill sizes="40px" className="object-cover" />
           </div>
-          <h3 className="text-2xl font-semibold">Ho Chi Minh City University of Technology</h3>
+          <div>
+            <h3 className="text-lg font-bold leading-snug text-slate-900 sm:text-xl md:text-2xl">
+              Ho Chi Minh City University of Technology
+            </h3>
+            <p className="mt-1 text-sm font-medium text-blue-600 sm:text-base">Bachelor of Computer Science</p>
+            <p className="mt-2 text-sm text-slate-500">GPA: 8.15</p>
+          </div>
         </div>
-        <p className="mt-2 text-violet-200">Bachelor of Computer Science</p>
-        <p className="mt-3 text-sm text-slate-300">GPA: 8.15</p>
       </motion.article>
     </section>
   );

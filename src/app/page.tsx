@@ -12,8 +12,8 @@ import { experience, skillGroups } from "@/data/portfolio";
 export default function Home() {
   return (
     <BackgroundEffects>
-      <main className="relative z-30 mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pb-24 pt-8 md:px-10">
-        <Header />
+      <Header />
+      <main className="relative z-10 mx-auto flex w-full max-w-5xl flex-col gap-24 px-4 pb-24 sm:px-6 md:px-10">
         <HeroSection />
         <IntroSection />
         <ExperienceSection experience={experience} />
