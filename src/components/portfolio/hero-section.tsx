@@ -1,15 +1,23 @@
 "use client";
 
+import avatar from "@/images/avatar.jpg";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaGithub } from "react-icons/fa6";
 import { HiEnvelope } from "react-icons/hi2";
-import avatar from "@/images/avatar.jpg";
 
 const roles = [
-  { label: "Frontend Engineer", emoji: "🖥", color: "bg-blue-50 text-blue-700" },
+  {
+    label: "Frontend Engineer",
+    emoji: "🖥",
+    color: "bg-blue-50 text-blue-700",
+  },
   { label: "React Developer", emoji: "⚛️", color: "bg-cyan-50 text-cyan-700" },
-  { label: "Go Developer", emoji: "🐹", color: "bg-emerald-50 text-emerald-700" },
+  {
+    label: "Go Developer",
+    emoji: "🐹",
+    color: "bg-emerald-50 text-emerald-700",
+  },
 ] as const;
 
 export function HeroSection() {
