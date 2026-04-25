@@ -66,7 +66,7 @@ export function Header() {
         </button>
       </div>
 
-      {/* Mobile dropdown */}
+      {/* Mobile dropdown — overlay so it doesn't push content */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -74,7 +74,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.15 }}
-            className="border-t border-slate-200 bg-white px-4 pb-3 pt-2 sm:hidden"
+            className="absolute inset-x-0 top-full z-40 mx-4 mt-1 rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_20px_50px_-20px_rgba(15,23,42,0.25)] sm:hidden"
           >
             {navItems.map((item) => (
               <a
@@ -90,7 +90,7 @@ export function Header() {
             <a
               href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="mt-1 inline-flex w-full items-center gap-1.5 rounded-xl bg-slate-900 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
+              className="mt-1 inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
             >
               <HiOutlineChatBubbleOvalLeft className="text-base" />
               Let&apos;s Talk

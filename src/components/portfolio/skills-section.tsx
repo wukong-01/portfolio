@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import type { SkillGroup } from "@/types/portfolio";
 import type { IconType } from "react-icons";
 import {
@@ -26,9 +25,12 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiWebpack,
+  SiZend,
 } from "react-icons/si";
 import { BsCursorFill } from "react-icons/bs";
 import { TbBrandRadixUi } from "react-icons/tb";
+import { GoCodeOfConduct } from "react-icons/go";
+import { LuRefreshCw } from "react-icons/lu";
 
 type SkillsSectionProps = {
   skillGroups: SkillGroup[];
@@ -59,6 +61,9 @@ const skillIcons: Record<string, IconType> = {
   "Github Copilot": SiGithubcopilot,
   "Microfrontend Architecture": SiMicrodotblog,
   "CI/CD Pipeline": SiGithubactions,
+  Zustand: SiZend,
+  OOP: GoCodeOfConduct,
+  Agile: LuRefreshCw,
 };
 
 const skillAccent: Record<string, string> = {
@@ -86,59 +91,41 @@ const skillAccent: Record<string, string> = {
   "Github Copilot": "text-slate-900",
   "Microfrontend Architecture": "text-emerald-500",
   "CI/CD Pipeline": "text-slate-900",
+  Zustand: "text-amber-700",
+  OOP: "text-indigo-500",
+  Agile: "text-emerald-600",
 };
 
 export function SkillsSection({ skillGroups }: SkillsSectionProps) {
   const skills = Array.from(new Set(skillGroups.flatMap((g) => g.items)));
+  const loop = [...skills, ...skills];
 
   return (
-    <section id="skills">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.55 }}
-        className="relative overflow-hidden rounded-[2rem] border-[3px] border-white bg-[#f3f4fa] p-6 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.18)] sm:p-10"
-      >
-        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-500">My toolbox</p>
-            <h2 className="mt-2 text-2xl font-bold leading-snug text-slate-900 sm:text-3xl">
-              Tech I work with
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm text-slate-500">
-            A practical stack honed across product teams — from frontend foundations to AI-assisted workflows.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-6">
-          {skills.map((skill, idx) => {
+    <div id="skills" className="mt-14 w-full pt-2">
+      <div className="marquee-container marquee-mask-x relative w-full overflow-hidden py-3">
+        <div className="marquee-left flex w-max items-center gap-4 pr-4">
+          {loop.map((skill, idx) => {
             const Icon = skillIcons[skill];
             const accent = skillAccent[skill] ?? "text-slate-700";
             return (
-              <motion.div
-                key={skill}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 0.3, delay: Math.min(idx * 0.02, 0.4) }}
-                whileHover={{ y: -3 }}
-                className="group flex aspect-square flex-col items-center justify-center gap-2 rounded-2xl border-[3px] border-white bg-white/85 p-3 shadow-[0_8px_22px_-18px_rgba(15,23,42,0.3)] transition hover:shadow-[0_14px_30px_-18px_rgba(59,130,246,0.4)]"
+              <div
+                key={`${skill}-${idx}`}
+                className="flex h-10 shrink-0 items-center gap-2 rounded-full border border-slate-200/70 bg-white px-4 shadow-[0_8px_22px_-18px_rgba(15,23,42,0.3)]"
               >
                 {Icon ? (
-                  <Icon className={`text-2xl ${accent} transition group-hover:scale-110`} />
+                  <Icon className={`text-base ${accent}`} />
                 ) : (
-                  <div className="h-6 w-6 rounded-md bg-slate-200" />
+                  <div className="h-4 w-4 rounded-md bg-slate-200" />
                 )}
-                <span className="line-clamp-2 px-1 text-center text-[11px] font-medium leading-tight text-slate-700">
+                <span className="whitespace-nowrap text-xs font-medium text-slate-700">
                   {skill}
                 </span>
-              </motion.div>
+              </div>
             );
           })}
         </div>
-      </motion.div>
-    </section>
+      </div>
+
+    </div>
   );
 }

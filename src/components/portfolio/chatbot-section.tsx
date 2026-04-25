@@ -159,7 +159,7 @@ export function ChatbotSection() {
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={isOpen ? "Close chat" : "Open chat"}
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-white shadow-[0_18px_45px_-12px_rgba(15,23,42,0.55)] transition hover:bg-slate-700"
+        className="fixed bottom-4 right-4 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-slate-900 text-white shadow-[0_18px_45px_-12px_rgba(15,23,42,0.55)] transition hover:bg-slate-700 sm:bottom-6 sm:right-6 sm:h-14 sm:w-14"
       >
         <AnimatePresence mode="wait" initial={false}>
           {isOpen ? (
@@ -170,7 +170,7 @@ export function ChatbotSection() {
               exit={{ rotate: 90, opacity: 0 }}
               transition={{ duration: 0.18 }}
             >
-              <HiXMark className="text-2xl" />
+              <HiXMark className="text-xl sm:text-2xl" />
             </motion.span>
           ) : (
             <motion.span
@@ -180,7 +180,7 @@ export function ChatbotSection() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.18 }}
             >
-              <HiOutlineChatBubbleOvalLeft className="text-2xl" />
+              <HiOutlineChatBubbleOvalLeft className="text-xl sm:text-2xl" />
             </motion.span>
           )}
         </AnimatePresence>
@@ -198,7 +198,7 @@ export function ChatbotSection() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.96 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-1.5rem)] origin-bottom-right overflow-hidden rounded-[1.5rem] border-[3px] border-white bg-[#f3f4fa] p-4 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.45)] sm:w-[400px] sm:p-5"
+            className="fixed bottom-20 right-4 z-50 w-[calc(100vw-2rem)] origin-bottom-right overflow-hidden rounded-[1.25rem] border-[3px] border-white bg-[#f3f4fa] p-4 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.45)] sm:bottom-24 sm:right-6 sm:w-[400px] sm:rounded-[1.5rem] sm:p-5"
           >
             <div className="mb-3 flex items-center gap-3">
               <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white">
@@ -212,7 +212,7 @@ export function ChatbotSection() {
 
             <div
               ref={messagesContainerRef}
-              className="max-h-[280px] space-y-2 overflow-y-auto rounded-xl border border-slate-200 bg-white/70 p-3"
+              className="max-h-[55vh] space-y-2 overflow-y-auto rounded-xl border border-slate-200 bg-white/70 p-3 sm:max-h-[320px]"
             >
           {!hasMessages ? (
             <div className="space-y-2 text-sm text-slate-500">
