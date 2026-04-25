@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { HiBars3, HiXMark } from "react-icons/hi2";
+import { HiBars3, HiOutlineChatBubbleOvalLeft, HiXMark } from "react-icons/hi2";
 
-const navItems = [
+type NavItem = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+const navItems: readonly NavItem[] = [
   { label: "Work", href: "#experience" },
-  { label: "About", href: "#intro" },
-  { label: "Contact", href: "#contact" },
-  { label: "Chatbot", href: "#chatbot" },
-] as const;
+  { label: "Resume", href: "/Cao-Thanh-Binh-Resume.pdf", external: true },
+];
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,15 +23,15 @@ export function Header() {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="sticky top-0 z-50 border-b border-slate-200/80 bg-[#f5f5f7]/85 backdrop-blur-md"
+      className="relative z-50 bg-transparent"
     >
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6 md:px-10">
         <a
           href="#"
-          className="font-mono text-sm font-bold tracking-tight text-blue-600 transition hover:text-blue-500"
+          className="font-mono text-sm font-semibold tracking-tight text-slate-900 transition hover:text-slate-700"
           aria-label="Home"
         >
-          &lt;/&gt;
+          Cao Thanh Binh
         </a>
 
         {/* Desktop nav */}
@@ -36,18 +40,18 @@ export function Header() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm font-medium text-slate-500 transition hover:text-slate-900"
+              {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+              className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
             >
               {item.label}
             </a>
           ))}
           <a
-            href="/Cao-Thanh-Binh-Resume.pdf"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700"
+            href="#contact"
+            className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700"
           >
-            Resume
+            <HiOutlineChatBubbleOvalLeft className="text-base" />
+            Let&apos;s Talk
           </a>
         </nav>
 
@@ -76,6 +80,7 @@ export function Header() {
               <a
                 key={item.label}
                 href={item.href}
+                {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
                 onClick={() => setMenuOpen(false)}
                 className="flex w-full rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
               >
@@ -83,13 +88,12 @@ export function Header() {
               </a>
             ))}
             <a
-              href="/Cao-Thanh-Binh-Resume.pdf"
-              target="_blank"
-              rel="noreferrer"
+              href="#contact"
               onClick={() => setMenuOpen(false)}
-              className="mt-1 flex w-full rounded-xl bg-slate-900 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
+              className="mt-1 inline-flex w-full items-center gap-1.5 rounded-xl bg-slate-900 px-3 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
             >
-              Resume
+              <HiOutlineChatBubbleOvalLeft className="text-base" />
+              Let&apos;s Talk
             </a>
           </motion.div>
         )}

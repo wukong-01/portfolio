@@ -1,10 +1,10 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { SectionTitle } from "@/components/portfolio/section-title";
+import { HiOutlineChatBubbleOvalLeft, HiSparkles, HiXMark } from "react-icons/hi2";
 
 type ChatMessage = {
   id: string;
@@ -21,12 +21,15 @@ const starterQuestions = [
 const loadingHints = ["Reviewing profile context...", "Composing response...", "Almost done..."];
 
 export function ChatbotSection() {
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loadingHintIndex, setLoadingHintIndex] = useState(0);
   const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const launcherRef = useRef<HTMLButtonElement | null>(null);
 
   const hasMessages = useMemo(() => messages.length > 0, [messages.length]);
 
@@ -46,6 +49,25 @@ export function ChatbotSection() {
     if (!container) return;
     container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
   }, [messages, isLoading]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleClickOutside(event: MouseEvent) {
+      const target = event.target as Node;
+      if (panelRef.current?.contains(target)) return;
+      if (launcherRef.current?.contains(target)) return;
+      setIsOpen(false);
+    }
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setIsOpen(false);
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen]);
 
   const loadingHint = loadingHints[loadingHintIndex];
 
@@ -130,31 +152,68 @@ export function ChatbotSection() {
   }
 
   return (
-    <section id="chatbot" className="space-y-10">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: 0.5 }}
+    <>
+      {/* Floating launcher */}
+      <button
+        ref={launcherRef}
+        type="button"
+        onClick={() => setIsOpen((prev) => !prev)}
+        aria-label={isOpen ? "Close chat" : "Open chat"}
+        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-slate-900 text-white shadow-[0_18px_45px_-12px_rgba(15,23,42,0.55)] transition hover:bg-slate-700"
       >
-        <SectionTitle title="Ask Me Anything" />
-      </motion.div>
+        <AnimatePresence mode="wait" initial={false}>
+          {isOpen ? (
+            <motion.span
+              key="close"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.18 }}
+            >
+              <HiXMark className="text-2xl" />
+            </motion.span>
+          ) : (
+            <motion.span
+              key="open"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+              transition={{ duration: 0.18 }}
+            >
+              <HiOutlineChatBubbleOvalLeft className="text-2xl" />
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </button>
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.4 }}
-        transition={{ duration: 0.5, delay: 0.06 }}
-        className="glass-card rounded-2xl p-5 md:p-6"
-      >
-        <p className="mb-4 text-sm text-slate-500">
-          Ask anything about Cao Thanh Binh&apos;s background, skills, and experience.
-        </p>
+      {/* Popup chat panel */}
+      <AnimatePresence>
+        {isOpen ? (
+          <motion.div
+            ref={panelRef}
+            id="chatbot"
+            role="dialog"
+            aria-label="Ask me anything chat"
+            initial={{ opacity: 0, y: 16, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.96 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-1.5rem)] origin-bottom-right overflow-hidden rounded-[1.5rem] border-[3px] border-white bg-[#f3f4fa] p-4 shadow-[0_30px_80px_-20px_rgba(15,23,42,0.45)] sm:w-[400px] sm:p-5"
+          >
+            <div className="mb-3 flex items-center gap-3">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-white">
+                <HiSparkles className="text-base" />
+              </span>
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-500">AI Assistant</p>
+                <h2 className="text-lg font-bold leading-tight text-slate-900">Ask me anything</h2>
+              </div>
+            </div>
 
-        <div
-          ref={messagesContainerRef}
-          className="max-h-[360px] space-y-3 overflow-y-auto rounded-xl border border-slate-200 bg-slate-50 p-3"
-        >
+            <div
+              ref={messagesContainerRef}
+              className="max-h-[280px] space-y-2 overflow-y-auto rounded-xl border border-slate-200 bg-white/70 p-3"
+            >
           {!hasMessages ? (
             <div className="space-y-2 text-sm text-slate-500">
               <p>Try one of these:</p>
@@ -207,25 +266,27 @@ export function ChatbotSection() {
           ))}
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-4 flex flex-col gap-3 sm:flex-row">
-          <input
-            value={input}
-            onChange={(event) => setInput(event.target.value)}
-            placeholder="Ask a question about Binh..."
-            className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 sm:py-2.5"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            disabled={isLoading || input.trim().length === 0}
-            className="rounded-xl bg-slate-900 px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50 sm:py-2.5"
-          >
-            Send
-          </button>
-        </form>
+            <form onSubmit={handleSubmit} className="mt-3 flex gap-2">
+              <input
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                placeholder="Ask a question about Binh..."
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-100"
+                disabled={isLoading}
+              />
+              <button
+                type="submit"
+                disabled={isLoading || input.trim().length === 0}
+                className="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Send
+              </button>
+            </form>
 
-        {error ? <p className="mt-3 text-sm text-red-500">{error}</p> : null}
-      </motion.div>
-    </section>
+            {error ? <p className="mt-3 text-sm text-red-500">{error}</p> : null}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
   );
 }

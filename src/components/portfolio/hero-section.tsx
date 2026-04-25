@@ -2,9 +2,9 @@
 
 import avatar from "@/images/avatar.jpg";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { FaGithub } from "react-icons/fa6";
 import { HiEnvelope } from "react-icons/hi2";
+import { PhotoTile } from "@/components/portfolio/photo-tile";
 
 const roles = [
   {
@@ -22,7 +22,7 @@ const roles = [
 
 export function HeroSection() {
   return (
-    <section className="grid min-h-[calc(100svh-var(--header-height))] grid-cols-1 items-center gap-12 py-16 md:grid-cols-[auto_1fr] md:gap-16">
+    <section className="grid min-h-[calc(100svh-var(--header-height))] grid-cols-1 content-center items-center gap-12 py-12 md:grid-cols-[auto_1fr] md:gap-16">
       {/* Photo */}
       <motion.div
         initial={{ opacity: 0, x: -24 }}
@@ -30,16 +30,18 @@ export function HeroSection() {
         transition={{ duration: 0.6, delay: 0.1 }}
         className="flex justify-center md:justify-start"
       >
-        <div className="relative h-52 w-44 -rotate-3 overflow-hidden rounded-[1.75rem] shadow-md sm:h-64 sm:w-52 md:h-72 md:w-56">
-          <Image
-            src={avatar}
-            alt="Portrait of Cao Thanh Binh"
-            fill
-            priority
-            sizes="(max-width: 640px) 176px, (max-width: 768px) 208px, 224px"
-            className="object-cover object-[50%_28%]"
-          />
-        </div>
+        <PhotoTile
+          src={avatar}
+          alt="Portrait of Cao Thanh Binh"
+          width="w-44 sm:w-52 md:w-56"
+          height="h-52 sm:h-64 md:h-72"
+          rounded="rounded-[1.75rem]"
+          shadowClass="shadow-md"
+          className="-rotate-3"
+          imageClassName="object-cover object-[50%_28%]"
+          sizes="(max-width: 640px) 176px, (max-width: 768px) 208px, 224px"
+          priority
+        />
       </motion.div>
 
       {/* Text */}
@@ -49,7 +51,7 @@ export function HeroSection() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="space-y-5"
       >
-        <p className="text-2xl sm:text-3xl md:text-4xl">Hi 👋</p>
+        <p className="text-2xl font-bold sm:text-3xl md:text-4xl">Hi 👋</p>
         <h1 className="text-2xl font-bold leading-tight text-slate-900 sm:text-3xl md:text-4xl">
           I&apos;m Binh, and I love building fast interfaces with clean code!
         </h1>

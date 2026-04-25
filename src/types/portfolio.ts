@@ -10,6 +10,7 @@ export type ExperienceItem = {
   responsibilities: string[];
   stack: string[];
   logo: StaticImageData;
+  gallery?: (StaticImageData | string)[];
 };
 
 export type SkillGroup = {

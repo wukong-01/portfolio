@@ -92,6 +92,6 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "Workflow",
-    items: ["Figma", "Agile", "OOP", "AI-assisted development with Copilot, Claude Code, and Cursor"],
+    items: ["Figma", "Agile", "OOP", "Claude Code", "Cursor", "Github Copilot"],
   },
 ];

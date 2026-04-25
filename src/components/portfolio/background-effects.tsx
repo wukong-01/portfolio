@@ -9,7 +9,7 @@ type BackgroundEffectsProps = {
 export function BackgroundEffects({ children }: BackgroundEffectsProps) {
   return (
     <div className="relative min-h-screen bg-[#f5f5f7] text-slate-900">
-      <div className="dot-grid pointer-events-none fixed inset-0 opacity-60" />
+      <div className="dot-grid dot-grid-fade pointer-events-none fixed inset-0" />
       {children}
     </div>
   );

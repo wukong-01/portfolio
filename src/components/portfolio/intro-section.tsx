@@ -1,74 +1,65 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { HiEnvelope, HiMapPin, HiPhone } from "react-icons/hi2";
-import { FaLinkedinIn } from "react-icons/fa6";
-import { SectionTitle } from "@/components/portfolio/section-title";
+import { PhotoTile } from "@/components/portfolio/photo-tile";
+
+const paragraphs = [
+  "I am a Frontend Engineer with 4 years of experience specializing in React. I build scalable, maintainable applications with strong attention to clean code, performance, and responsive design.",
+  "I have hands-on experience with microfrontend architecture for modular development and independent deployment.",
+  "I am also comfortable with fullstack contributions using Golang, and I enjoy collaborating across cross-functional teams to deliver smooth product experiences.",
+];
+
+const leftColumn = ["aspect-[4/5]", "aspect-[4/3]", "aspect-[4/5]", "aspect-[4/3]"];
+const rightColumn = ["aspect-[4/3]", "aspect-[4/5]", "aspect-[4/3]", "aspect-[4/5]"];
 
 export function IntroSection() {
   return (
-    <section id="intro" className="space-y-10">
+    <section id="intro" className="flex min-h-screen scroll-mt-24 flex-col justify-center py-16">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.6 }}
-        transition={{ duration: 0.5 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.55 }}
+        className="relative overflow-hidden rounded-[2rem] border-[3px] border-white bg-[#f3f4fa] p-6 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.18)] sm:p-10"
       >
-        <SectionTitle title="About me" />
+
+        <div className="relative grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
+          {/* Left: text */}
+          <div className="flex flex-col justify-center">
+            <h2 className="text-xl font-bold text-slate-900 sm:text-2xl">About me</h2>
+            <div className="mt-5 space-y-4 text-[15px] leading-relaxed text-slate-600 sm:text-base">
+              {paragraphs.map((p) => (
+                <p key={p}>{p}</p>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: vertical infinite-scroll photo collage */}
+          <div className="marquee-container marquee-mask relative h-[520px] overflow-hidden sm:h-[560px]">
+            <div className="marquee-up flex flex-col gap-3">
+              <PhotoTrack />
+              <PhotoTrack ariaHidden />
+            </div>
+          </div>
+        </div>
       </motion.div>
-
-      <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-4"
-        >
-          <p className="text-base leading-relaxed text-slate-600 md:text-lg">
-            I am a Frontend Engineer with 4 years of experience specializing in React. I build scalable, maintainable
-            applications with strong attention to clean code, performance, and responsive design. I have hands-on
-            experience with microfrontend architecture for modular development and independent deployment.
-          </p>
-          <p className="text-base leading-relaxed text-slate-600 md:text-lg">
-            I am also comfortable with fullstack contributions using Golang, and I enjoy collaborating across
-            cross-functional teams to deliver smooth product experiences.
-          </p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.5, delay: 0.08 }}
-          className="glass-card rounded-2xl p-5"
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-slate-400">Quick profile</p>
-          <ul className="mt-4 space-y-2.5">
-            {[
-              { icon: HiMapPin, text: "Ho Chi Minh City, Vietnam" },
-              { icon: HiEnvelope, text: "binh17122001@gmail.com" },
-              { icon: HiPhone, text: "+84 372 358 493" },
-            ].map(({ icon: Icon, text }) => (
-              <li key={text} className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-                <Icon className="shrink-0 text-base text-blue-500" />
-                <span className="min-w-0 truncate">{text}</span>
-              </li>
-            ))}
-            <li className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 text-sm text-slate-700">
-              <FaLinkedinIn className="shrink-0 text-base text-blue-500" />
-              <a
-                href="https://www.linkedin.com/in/ctbinh"
-                target="_blank"
-                rel="noreferrer"
-                className="min-w-0 truncate transition hover:text-blue-600"
-              >
-                linkedin.com/in/ctbinh
-              </a>
-            </li>
-          </ul>
-        </motion.div>
-      </div>
     </section>
+  );
+}
+
+function PhotoTrack({ ariaHidden = false }: { ariaHidden?: boolean }) {
+  return (
+    <div className="flex gap-3" aria-hidden={ariaHidden}>
+      <div className="flex flex-1 flex-col gap-3">
+        {leftColumn.map((ratio, idx) => (
+          <PhotoTile key={`l-${idx}`} ratio={ratio} />
+        ))}
+      </div>
+      <div className="flex flex-1 flex-col gap-3">
+        {rightColumn.map((ratio, idx) => (
+          <PhotoTile key={`r-${idx}`} ratio={ratio} />
+        ))}
+      </div>
+    </div>
   );
 }
