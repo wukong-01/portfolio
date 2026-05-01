@@ -28,7 +28,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         />
       </motion.div>
 
-      <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-8">
+      <div className={`grid grid-cols-1 gap-12 sm:gap-8 ${projects.length > 1 ? "sm:grid-cols-2" : ""}`}>
         {projects.map((project, idx) => (
           <ProjectShowcase key={project.slug} project={project} index={idx} />
         ))}

@@ -1,7 +1,6 @@
 import sendoLogo from "@/images/sendo.png";
 import techxLogo from "@/images/techx.jpeg";
 import ugeLogo from "@/images/uge.jpeg";
-import vnptLogo from "@/images/vnpt.jpeg";
 import type { ExperienceItem, PersonalProject, SkillGroup } from "@/types/portfolio";
 
 export const experience: ExperienceItem[] = [
@@ -110,23 +109,23 @@ export const experience: ExperienceItem[] = [
     ],
     stack: ["Next.js", "Ant Design", "Tailwind CSS", "Zustand", "React Query"],
   },
-  {
-    slug: "vnpt-telecom",
-    company: "VNPT Telecom",
-    role: "Frontend Developer",
-    period: "06/2022 - 05/2023",
-    logo: vnptLogo,
-    highlight:
-      "Implemented user interfaces for information systems and collaborated with backend teams to integrate APIs and solve frontend issues.",
-    description:
-      "Delivered frontend features for internal and customer-facing information systems with focus on responsiveness and maintainability.",
-    responsibilities: [
-      "Implemented UI features across multiple information systems using React.",
-      "Worked with backend developers to integrate APIs and resolve frontend defects quickly.",
-      "Improved user experience consistency across modules with reusable UI patterns.",
-    ],
-    stack: ["React", "Redux", "Bootstrap"],
-  },
+  // {
+  //   slug: "vnpt-telecom",
+  //   company: "VNPT Telecom",
+  //   role: "Frontend Developer",
+  //   period: "06/2022 - 05/2023",
+  //   logo: vnptLogo,
+  //   highlight:
+  //     "Implemented user interfaces for information systems and collaborated with backend teams to integrate APIs and solve frontend issues.",
+  //   description:
+  //     "Delivered frontend features for internal and customer-facing information systems with focus on responsiveness and maintainability.",
+  //   responsibilities: [
+  //     "Implemented UI features across multiple information systems using React.",
+  //     "Worked with backend developers to integrate APIs and resolve frontend defects quickly.",
+  //     "Improved user experience consistency across modules with reusable UI patterns.",
+  //   ],
+  //   stack: ["React", "Redux", "Bootstrap"],
+  // },
 ];
 
 export const personalProjects: PersonalProject[] = [
