@@ -5,7 +5,22 @@ import { ExperienceSection } from "@/components/portfolio/experience-section";
 import { Header } from "@/components/portfolio/header";
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { IntroSection } from "@/components/portfolio/intro-section";
-import { experience, skillGroups } from "@/data/portfolio";
+import { ProjectsSection } from "@/components/portfolio/projects-section";
+import { experience, personalProjects, skillGroups } from "@/data/portfolio";
+
+const PORTRAIT_IMAGES = new Set([
+  "/img/sendo/sendo_checkout.jpg",
+  "/img/sendo/sendo_products.jpg",
+  "/img/sendo/sendo_orders.jpg",
+]);
+
+const allGalleryImages = [
+  ...experience.flatMap((e) => e.gallery ?? []),
+  ...personalProjects.flatMap((p) => p.gallery ?? []),
+].map((src) => ({
+  src: src as string,
+  portrait: typeof src === "string" && PORTRAIT_IMAGES.has(src),
+}));
 
 export default function Home() {
   return (
@@ -15,8 +30,9 @@ export default function Home() {
         <HeroSection />
         <IntroSection />
         <ExperienceSection experience={experience} />
+        <ProjectsSection projects={personalProjects} />
         <div className="flex min-h-screen flex-col justify-center py-12 sm:py-16">
-          <ContactSection skillGroups={skillGroups} />
+          <ContactSection skillGroups={skillGroups} images={allGalleryImages} />
         </div>
       </main>
       <footer className="relative z-10 pb-8 pt-4 text-center text-sm text-slate-500">

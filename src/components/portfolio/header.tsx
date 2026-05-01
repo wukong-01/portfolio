@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { HiBars3, HiOutlineChatBubbleOvalLeft, HiXMark } from "react-icons/hi2";
 
 type NavItem = {
@@ -12,7 +12,7 @@ type NavItem = {
 
 const navItems: readonly NavItem[] = [
   { label: "Work", href: "#experience" },
-  { label: "Resume", href: "/Cao-Thanh-Binh-Resume.pdf", external: true },
+  { label: "Resume", href: "/resume.pdf", external: true },
 ];
 
 export function Header() {
@@ -40,7 +40,9 @@ export function Header() {
             <a
               key={item.label}
               href={item.href}
-              {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+              {...(item.external
+                ? { target: "_blank", rel: "noreferrer" }
+                : {})}
               className="text-sm font-medium text-slate-600 transition hover:text-slate-900"
             >
               {item.label}
@@ -62,7 +64,11 @@ export function Header() {
           className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition hover:text-slate-900 sm:hidden"
           aria-label="Toggle navigation menu"
         >
-          {menuOpen ? <HiXMark className="text-lg" /> : <HiBars3 className="text-lg" />}
+          {menuOpen ? (
+            <HiXMark className="text-lg" />
+          ) : (
+            <HiBars3 className="text-lg" />
+          )}
         </button>
       </div>
 
@@ -80,7 +86,9 @@ export function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                {...(item.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                {...(item.external
+                  ? { target: "_blank", rel: "noreferrer" }
+                  : {})}
                 onClick={() => setMenuOpen(false)}
                 className="flex w-full rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-slate-50 hover:text-slate-900"
               >

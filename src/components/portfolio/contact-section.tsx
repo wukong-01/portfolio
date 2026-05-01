@@ -6,19 +6,20 @@ import { FaFacebookF, FaLinkedinIn } from "react-icons/fa6";
 import { PhotoTile } from "@/components/portfolio/photo-tile";
 import { SkillsSection } from "@/components/portfolio/skills-section";
 import type { SkillGroup } from "@/types/portfolio";
+import type { StaticImageData } from "next/image";
 
-const deviceTiles = [
-  { width: "w-[110px] sm:w-[170px]", height: "h-[160px] sm:h-[240px]", rotate: "-rotate-6", rounded: "rounded-[1.5rem] sm:rounded-[1.75rem]" },
-  { width: "w-[140px] sm:w-[220px]", height: "h-[110px] sm:h-[170px]", rotate: "rotate-2", rounded: "rounded-[1rem]" },
-  { width: "w-[120px] sm:w-[180px]", height: "h-[170px] sm:h-[250px]", rotate: "-rotate-3", rounded: "rounded-[1.25rem] sm:rounded-[1.5rem]" },
-  { width: "w-[120px] sm:w-[180px]", height: "h-[180px] sm:h-[260px]", rotate: "rotate-6", rounded: "rounded-[1.25rem] sm:rounded-[1.5rem]" },
-];
+type GalleryImage = { src: StaticImageData | string; portrait: boolean };
 
 type ContactSectionProps = {
   skillGroups?: SkillGroup[];
+  images?: GalleryImage[];
 };
 
-export function ContactSection({ skillGroups }: ContactSectionProps) {
+const ROTATIONS = ["-rotate-6", "rotate-2", "-rotate-3", "rotate-6", "-rotate-4", "rotate-3", "-rotate-2", "rotate-5"];
+
+export function ContactSection({ skillGroups, images = [] }: ContactSectionProps) {
+  const loop = images.length > 0 ? [...images, ...images] : [];
+
   return (
     <motion.section
       id="contact"
@@ -60,18 +61,24 @@ export function ContactSection({ skillGroups }: ContactSectionProps) {
         </a>
       </div>
 
-      <div className="mt-10 flex flex-wrap items-end justify-center gap-3 sm:mt-14 sm:gap-6">
-        {deviceTiles.map((tile, idx) => (
-          <PhotoTile
-            key={idx}
-            width={tile.width}
-            height={tile.height}
-            rounded={tile.rounded}
-            className={tile.rotate}
-            shadowClass="shadow-[0_24px_60px_-25px_rgba(15,23,42,0.45)]"
-          />
-        ))}
-      </div>
+      {loop.length > 0 && (
+        <div className="marquee-container marquee-mask-x relative mt-10 w-full overflow-hidden py-8 sm:mt-14">
+          <div className="marquee-left flex w-max items-end gap-5 pr-5 sm:gap-7 sm:pr-7">
+            {loop.map(({ src, portrait }, idx) => (
+              <PhotoTile
+                key={idx}
+                src={src as StaticImageData | string}
+                alt={`Project image ${(idx % images.length) + 1}`}
+                width={portrait ? "w-[80px] sm:w-[95px]" : "w-[180px] sm:w-[220px]"}
+                height={portrait ? "h-[160px] sm:h-[190px]" : "h-[110px] sm:h-[135px]"}
+                sizes={portrait ? "95px" : "220px"}
+                shadowClass=""
+                className={ROTATIONS[idx % ROTATIONS.length]}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
       {skillGroups ? <SkillsSection skillGroups={skillGroups} /> : null}
     </motion.section>

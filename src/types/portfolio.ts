@@ -11,9 +11,24 @@ export type ExperienceItem = {
   stack: string[];
   logo: StaticImageData;
   gallery?: (StaticImageData | string)[];
+  galleryLayout?: "default" | "portrait-mix" | "landscape-portrait";
+  projectUrl?: string;
+  impact?: string[];
 };
 
 export type SkillGroup = {
   title: string;
   items: string[];
+};
+
+export type PersonalProject = {
+  slug: string;
+  title: string;
+  highlight: string;
+  description: string;
+  features: string[];
+  stack: string[];
+  projectUrl?: string;
+  gallery?: (StaticImageData | string)[];
+  galleryLayout?: "default" | "portrait-mix" | "landscape-portrait";
 };

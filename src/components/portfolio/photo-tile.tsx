@@ -39,12 +39,13 @@ export function PhotoTile({
   borderClass = "border-[3px] border-white",
   shadowClass = "shadow-[0_14px_30px_-22px_rgba(15,23,42,0.35)]",
   className = "",
-  imageClassName = "object-cover",
+  imageClassName = "object-cover object-top",
   sizes = "(max-width: 768px) 30vw, 240px",
   priority = false,
 }: PhotoTileProps) {
   const sizingClasses = [width, height, ratio].filter(Boolean).join(" ");
-  const wrapperClasses = `relative overflow-hidden ${rounded} ${borderClass} ${shadowClass} ${bgClass} ${sizingClasses} ${className}`.trim();
+  const wrapperClasses =
+    `relative overflow-hidden ${rounded} ${borderClass} ${shadowClass} ${bgClass} ${sizingClasses} ${className} transition-transform duration-500 ease-out hover:scale-[1.04] hover:rotate-1`.trim();
 
   if (src) {
     return (
